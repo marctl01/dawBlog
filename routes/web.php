@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+//Rutas publicas
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+//Rutas privadas
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
